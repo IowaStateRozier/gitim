@@ -3,10 +3,11 @@
 from __future__ import print_function
 from getpass import getpass
 from argparse import ArgumentParser
-from os import chdir, path, makedirs, pardir, environ
-from subprocess import call, Popen
+from os import chdir, path, makedirs, pardir, environ, getcwd
+from subprocess import call, Popen, check_output
 from functools import partial
 from platform import python_version_tuple
+import fileinput
 import re
 
 from github import Github
@@ -93,6 +94,22 @@ Version: {__version__}
                 call([u'git', u'pull'], env=dict(environ, GIT_DIR=join(repo.name, '.git').encode('utf8')))
             else:
                 print(u'Already cloned, skipping...\t"{repo.name}"'.format(repo=repo))
+            # Repo should be cloned/updated now
+            myDir = getcwd()
+            chdir(repo.name)
+
+            call([u'git', u'checkout', u'master'])
+            gitResult = check_output([u'git', u'branch', '-r']).split()
+            for branch in gitResult:
+                match = re.search('HEAD|master|->', branch)
+                if not (match):
+                    match = re.search('origin/(\S+)', branch)
+                    print("???\tIAState-gitim: Guessing branch to be " + match.group(1))
+                    call([u'git', u'fetch', u'origin',  match.group(1)])
+                    call([u'git', u'checkout', match.group(1)])
+                    submitted = check_output([u'git', u'log', u'--remotes',  u'--format="%aN %aE %ad"', u'-1'])
+                    print("???\tIAState-gitim: Guessing submission to be " + submitted)
+            chdir(myDir)
         print(u'FIN')
 
 
