@@ -4,20 +4,15 @@
 [![Python Version][Python Image]][Python]
 ![Project Status: Active][Project Status Image]
 
-             .--.         .--. __  __   ___
-      .--./) |__|         |__||  |/  `.'   `.
-     /.''\  .--.     .|  .--.|   .-.  .-.   '
-    | |  | | |  |   .' |_ |  ||  |  |  |  |  |
-     \`-' /  |  | .'     ||  ||  |  |  |  |  |
-     /("'`   |  |'--.  .-'|  ||  |  |  |  |  |
-     \ '---. |  |   |  |  |  ||  |  |  |  |  |
-      /'""'.\|__|   |  |  |__||__|  |__|  |__|
-     ||     ||      |  '.'
-     '. __//       |   /
-      `'---'        `'-'
+   _______   ______       __               _ __  _     
+  /  _/ _ | / __/ /____ _/ /____ _______ _(_) /_(_)_ _ 
+ _/ // __ |_\ \/ __/ _ `/ __/ -_)___/ _ `/ / __/ /  ' \
+/___/_/ |_/___/\__/\_,_/\__/\__/    \_, /_/\__/_/_/_/_/
+                                   /___/               
 
     created by "Mustafa Hasturk" <hi [at] mustafahasturk [dot] com>
-    Version: 1.0.2
+    modified by "EWD Rozier" <erozier [at symbol] iastate {put in a dot} edu>
+    Version: 0.1.0
 
     usage: 'python -m gitim -u'
                 Username and password will be prompted.
@@ -35,6 +30,12 @@
       -d DEST, --dest DEST  Destination directory. Created if doesn't exist.
                             [curr_dir]
       --nopull              Don't pull if repository exists. [false]
+      -a ASSIGNMENT, --assignment ASSIGNMENT
+      	 	     	    Pull only assignments with prefix
+
+# Installation
+
+You will likely have to install the module PyGithub to provide the package Github.
 
 ##### Licence
 MIT
