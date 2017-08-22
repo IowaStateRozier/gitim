@@ -110,7 +110,7 @@ Version: {__version__}
             submitter = None
             for branch in gitResult:
                 submitter = re.match(".*-(\S+)", repo.full_name).group(1)
-                if (re.search("submission", branch)):
+                if (re.search("submission", branch, re.IGNORECASE)):
                     theDate = re.search("::(.*)::", branch).group(1)
                     print("Submission Date\t", submitter, theDate)
                     submissionLogs[submitter] = theDate
