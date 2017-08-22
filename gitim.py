@@ -124,7 +124,11 @@ Version: {__version__}
                 #     print("???\tIAState-gitim: Guessing submission to be " + submitted)
             chdir(myDir)
         print(u'FIN')
-        print(submissionLogs)
+        fout = open("submission.log", "w")
+        print("# User\t\tSubmission Date", file=fout)
+        for key, val in submissionLogs.items():
+            print(key, "\t", val, file=fout)
+        fout.close()
 
 
 if __name__ == '__main__':
