@@ -62,7 +62,7 @@ Version: {__version__}
             if not password:
                 password = getpass('Password: ')
             if not args.dest:
-                args.dest = input(u'Destination: ')
+                args.dest = "./"
             g = Github(user, password)
         return g
 
@@ -72,6 +72,9 @@ Version: {__version__}
         args = parser.parse_args()
         g = self.make_github_agent(args)
         user = g.get_user().login
+
+        submissionLogs = {}
+        
         # (BadCredentialsException, TwoFactorException, RateLimitExceededException)
 
         join = path.join
@@ -98,19 +101,30 @@ Version: {__version__}
             myDir = getcwd()
             chdir(repo.name)
 
-            call([u'git', u'checkout', u'master'])
-            gitResult = check_output([u'git', u'branch', '-r']).split()
+            try:
+                gitResult = check_output([u'git', u'checkout', u'submission'])
+            except:
+                print("No submission found")
+            gitResult = check_output([u'git', u'for-each-ref', u'--sort=-committerdate', u'--format=\"::%(committerdate:iso):: %(refname)"', u'refs/remotes/origin/submission']).split('\n')
+            theDate = None
+            submitter = None
             for branch in gitResult:
-                match = re.search('HEAD|master|->', branch)
-                if not (match):
-                    match = re.search('origin/(\S+)', branch)
-                    print("???\tIAState-gitim: Guessing branch to be " + match.group(1))
-                    call([u'git', u'fetch', u'origin',  match.group(1)])
-                    call([u'git', u'checkout', match.group(1)])
-                    submitted = check_output([u'git', u'log', u'--remotes',  u'--format="%aN %aE %ad"', u'-1'])
-                    print("???\tIAState-gitim: Guessing submission to be " + submitted)
+                submitter = re.match(".*-(\S+)", repo.full_name).group(1)
+                if (re.search("submission", branch)):
+                    theDate = re.search("::(.*)::", branch).group(1)
+                    print("Submission Date\t", submitter, theDate)
+                    submissionLogs[submitter] = theDate
+                # match = re.search('HEAD|master|->', branch)
+                # if not (match):
+                #     match = re.search('origin/(\S+)', branch)
+                #     print("???\tIAState-gitim: Guessing branch to be " + match.group(1))
+                #     call([u'git', u'fetch', u'origin',  match.group(1)])
+                #     call([u'git', u'checkout', match.group(1)])
+                #     submitted = check_output([u'git', u'log', u'--remotes',  u'--format="%aN %aE %ad"', u'-1'])
+                #     print("???\tIAState-gitim: Guessing submission to be " + submitted)
             chdir(myDir)
         print(u'FIN')
+        print(submissionLogs)
 
 
 if __name__ == '__main__':
