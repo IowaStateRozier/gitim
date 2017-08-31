@@ -18,8 +18,11 @@
     usage: 'python -m gitim -u'
                 Username and password will be prompted.
 
-    Clone all your Github repositories.
-
+    Clones all git repositories under an organization.
+    To use this for grading at ISU, supply an assignment identifier using the -a flag
+    For example, if the assignment shows as <assignmentname>-<username> use
+    python gitim.py -o <orgname> -a <assignmentname>
+    
     optional arguments:
       -h, --help            show this help message and exit
       -u USER, --user USER  Your github username
