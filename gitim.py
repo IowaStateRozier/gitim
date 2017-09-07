@@ -17,6 +17,7 @@ if python_version_tuple()[0] == u'2':
 
 __author__ = u'"Samuel Marks", "Mustafa Hasturk" <mustafa.hasturk@yandex.com>'
 __modified__ = u'"EWD Rozier", <erozier@iastate.edu>'
+__modified__ = u'"KY Rozier", <kyrozier@iastate.edu>'
 __version__ = '0.1.0'
 
 
@@ -37,18 +38,15 @@ Version: {__version__}
     def set_args(self):
         """ Create parser for command line arguments """
         parser = ArgumentParser(
-            usage=u'python -m gitim -u\'\n\t\t\tUsername and password will be prompted.',
-            description='Clones all git repositories under an organization.\n' +
-            'To use this for grading at ISU, supply an assignment identifier using the -a flag.\n' +
-            'For example, if the assignment shows as <assignmentname>-<username> use\n' +
-            'python gitim.py -o <orgname> -a <assignmentname>\n')
+                usage=u'python -m gitim -u\'\n\t\t\tUsername and password will be prompted.',
+                description='Clone all your Github repositories.')
         parser.add_argument('-u', '--user', help='Your github username')
         parser.add_argument('-p', '--password', help=u'Github password')
         parser.add_argument('-t', '--token', help=u'Github OAuth token')
-        parser.add_argument('-o', '--org', help=u'Organisation/team. User used by default.')
+        parser.add_argument('-o', '--org', help=u'Organisation/team. User used by default. For git classroom, this is the name of the classroom, which appears after the @ on https://classroom.github.com/classrooms')
         parser.add_argument('-d', '--dest', help=u'Destination directory. Created if doesn\'t exist. [curr_dir]')
         parser.add_argument('--nopull', action='store_true', help=u'Don\'t pull if repository exists. [false]')
-        parser.add_argument('-a', '--assignment', help=u'Assignment Name')
+        parser.add_argument('-a', '--assignment', help=u'Assignment Prefix. For git classroom, this is the *assignment repository prefix*')
         return parser
 
     def make_github_agent(self, args):

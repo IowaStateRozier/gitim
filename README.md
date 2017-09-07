@@ -13,29 +13,32 @@
 ~~~~
     created by "Mustafa Hasturk" <hi [at] mustafahasturk [dot] com>
     modified by "EWD Rozier" <erozier [at symbol] iastate {put in a dot} edu>
+    modified by "KY Rozier" <kyrozier [at symbol] iastate {put in a dot} edu>
     Version: 0.1.0
 
     usage: 'python -m gitim -u'
                 Username and password will be prompted.
 
-    Clones all git repositories under an organization.
-    To use this for grading at ISU, supply an assignment identifier using the -a flag
-    For example, if the assignment shows as <assignmentname>-<username> use
-    python gitim.py -o <orgname> -a <assignmentname>
-    
-    optional arguments:
-      -h, --help            show this help message and exit
-      -u USER, --user USER  Your github username
-      -p PASSWORD, --password PASSWORD
-                            Github password
-      -t TOKEN, --token TOKEN
-                            Github OAuth token
-      -o ORG, --org ORG     Organisation/team. User used by default.
-      -d DEST, --dest DEST  Destination directory. Created if doesn't exist.
-                            [curr_dir]
-      --nopull              Don't pull if repository exists. [false]
-      -a ASSIGNMENT, --assignment ASSIGNMENT
-      	 	     	    Pull only assignments with prefix
+    Clone all your Github repositories.
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -u USER, --user USER  Your github username
+  -p PASSWORD, --password PASSWORD
+                        Github password
+  -t TOKEN, --token TOKEN
+                        Github OAuth token
+  -o ORG, --org ORG     Organisation/team. User used by default. For git
+                        classroom, this is the name of the classroom, which
+                        appears after the @ on
+                        https://classroom.github.com/classrooms
+  -d DEST, --dest DEST  Destination directory. Created if doesn't exist.
+                        [curr_dir]
+  --nopull              Don't pull if repository exists. [false]
+  -a ASSIGNMENT, --assignment ASSIGNMENT
+                        Assignment Prefix. For git classroom, this is the
+                        *assignment repository prefix*
+
 
 # Installation
 
